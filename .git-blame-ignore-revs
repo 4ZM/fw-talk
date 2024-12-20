@@ -1,0 +1,2 @@
+# Add full commit hashes for any commit that should be ignored in git blame commands.
+# This is useful for large code formatting operations where many lines are touched

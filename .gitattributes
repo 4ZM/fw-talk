@@ -1,0 +1,3 @@
+# LF on server and Linux, CRLF on Windows
+*       text=auto
+*.sh    text eol=lf
