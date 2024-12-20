@@ -1,0 +1,118 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# coverage
+**/.coverage.*
+*func-sort-c.html
+*index-sort-b.html
+*index-sort-f.html
+*index-sort-l.html
+*.func.html
+*.gcov.html
+*.gmon.*
+
+#mac files
+.DS_Store
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/**
+.direnv
+.envrc
+
+# Vim settings files
+*.swp
+.clang
+.vimrc
+.project_alt.json
+
+# Vim tags
+/tags
+
+# Cscope tags
+cscope.files
+cscope.out
+
+# Open Office lock files
+*.xlsx#
+
+# Eclipse
+.project
+.pydevproject
+.cproject
+**/.settings/**
+
+# CLion
+**/.clwb
+
+# Bazel files
+**/.bazel/**
+**/user.bazelrc
+**/MODULE.bazel.lock
+
+# Visual Studio (Core) proj files
+**/project.lock.json
+**/.vscode/**
+**/.vs/**
+**/.env
+!/.vscode/extensions.json
+!/.vscode/template.settings.json
+
+# node.js
+node_modules
+
+# Emacs
+*~
+**/TAGS
+**/GPATH
+**/GRTAGS
+**/GTAGS
+
+# Generated config file
+config/all_configs.xlsx
+
+# Ignore directories created by Jenkins dir()
+*@tmp
+
+# Parasoft C/C++test static analysis tool used by automotive
+.cpptest/
+*cpptestcli.properties
+
+# Python ephemeral data
+.venv
+.mypy_cache
+.pytest_cache
+.ruff_cache
+
+# Conan local cache and build directories
+conan/
