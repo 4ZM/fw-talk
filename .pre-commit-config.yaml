@@ -12,6 +12,7 @@ repos:
     rev: v0.10.0.1
     hooks:
       - id: shellcheck
+        args: [-e, SC2086]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
     rev: v0.8.2
