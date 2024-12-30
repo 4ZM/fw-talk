@@ -4,7 +4,7 @@ set -e  # Exit on errors
 set -x  # Echo each line
 
 ARM_BIN_DIR=$HOME/tools/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin
-COPTS="-w -g3 -nostdlib -mcpu=cortex-m4 -mfloat-abi=softfp -mfpu=fpv4-sp-d16"
+COPTS="-w -g3 -nostdlib -mcpu=cortex-m4 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -Wall -Wextra -mthumb"
 
 rm -r build
 mkdir -p build
