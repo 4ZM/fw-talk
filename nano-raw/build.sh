@@ -15,4 +15,6 @@ ${ARM_BIN_DIR}/arm-none-eabi-gcc ${COPTS} -Tlinker_script.ld -Wl,-Map,build/blin
 ${ARM_BIN_DIR}/arm-none-eabi-objcopy -O binary build/blink.elf build/blink.bin
 ${ARM_BIN_DIR}/arm-none-eabi-objcopy -O ihex -R .eeprom build/blink.elf build/blink.hex
 
-"$HOME/.arduino15/packages/arduino/tools/bossac/1.9.1-arduino2/bossac" -d --port=ttyACM0 -U -i -e -w "build/blink.bin" -R
+if [ $# -gt 0 ]; then
+    "$HOME/.arduino15/packages/arduino/tools/bossac/1.9.1-arduino2/bossac" -d --port=ttyNANO0 -U -i -e -w "build/blink.bin" -R
+fi

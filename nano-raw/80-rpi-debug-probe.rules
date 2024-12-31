@@ -1,0 +1,2 @@
+SUBSYSTEM=="tty", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="000c", ATTRS{serial}=="E6633861A3734F38", SYMLINK+="ttyDBG0"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="005a", ATTRS{serial}=="0000000000000000BC94373EE6A3CB99", SYMLINK+="ttyNANO0"

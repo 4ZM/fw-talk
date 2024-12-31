@@ -65,3 +65,27 @@ P0.06 (B)
 Peripheral 0.5GB 0x40000000 - 0x60000000
 SRAM 0.5GB 0x20000000 - 0x40000000
 Code 0.5GB 0x00000000 - 0x20000000
+
+
+# programmer
+
+$ lsusb
+Bus 001 Device 095: ID 2341:005a Arduino SA Arduino Nano 33 BLE
+Bus 001 Device 091: ID 2e8a:000c Raspberry Pi Debug Probe (CMSIS-DAP)
+
+$ sudo udevadm monitor --udev
+UDEV  [558235.752668] remove   /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0/tty/ttyACM1 (tty)
+...
+UDEV  [558242.097973] add      /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0/tty/ttyACM1 (tty)
+
+or
+$ sudo udevadm info -n /dev/ttyACM0
+E: ID_VENDOR_ID=2e8a
+E: ID_MODEL_ID=000c
+ID_SERIAL=Raspberry_Pi_Debug_Probe__CMSIS-DAP__E6633861A3734F38
+
+
+This works: Program with /dev/ttyNANO0
+cat /etc/udev/rules.d/80-rpi-debug-probe.rules
+SUBSYSTEM=="tty", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="000c", ATTRS{serial}=="E6633861A3734F38", SYMLINK+="ttyDBG0"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="005a", ATTRS{serial}=="0000000000000000BC94373EE6A3CB99", SYMLINK+="ttyNANO0"
