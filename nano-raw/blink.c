@@ -62,6 +62,14 @@ void Reset_Handler(void) {
 }
 
 int main(void) {
+  unsigned int gpio_p0 = 0x50000000;
+  unsigned int gpio_outset = 0x508;
+  unsigned int gpio_dirset = 0x518;
+
+  unsigned int led_builtin = 13; // P0.13 LED_BUILTIN (yellow)
+
+  *((unsigned int *)(gpio_p0 + gpio_dirset)) = 1 << led_builtin;
+  *((unsigned int *)(gpio_p0 + gpio_outset)) = 1 << led_builtin;
   for (;;) {
   }
 }
