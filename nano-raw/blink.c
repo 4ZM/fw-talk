@@ -68,16 +68,39 @@ void Default_Handler(void) {
   }
 }
 
-int main(void) {
+const uint MS_TICK = 0xfa00; // 64MHz x 1ms => 64000 (0xfa00) ticks
 
-  const uint MS_TICK = 0xfa00; // 64MHz x 1ms => 64000 (0xfa00) ticks
+// Arm Cortex-M4 Technical Reference
+//   4.1 System control registers
+const uint STCSR = 0xE000E010; // Control and Status Register
+const uint STRVR = 0xE000E014; // Reload Value Register
+const uint STCVR = 0xE000E018; // Current Value Register
 
-  // Arm Cortex-M4 Technical Reference
-  //   4.1 System control registers
-  const uint STCSR = 0xE000E010; // Control and Status Register
-  const uint STRVR = 0xE000E014; // Reload Value Register
-  const uint STCVR = 0xE000E018; // Current Value Register
+// IO
+// nRF52840 Product Specification v1.11
+//   6.9.2 Registers
 
+const uint GPIO_P0 = 0x50000000;
+const uint GPIO_OUTSET = 0x508;
+const uint GPIO_OUTCLR = 0x50C;
+const uint GPIO_DIRSET = 0x518;
+const uint GPIO_DIRCLR = 0x50C;
+const uint GPIO_PIN_LED_BUILTIN = 13; // P0.13 GPIO_PIN_LED_BUILTIN (yellow)
+
+void set_pin(uint pin, uint value) {
+  if (value)
+    *((uint *)(GPIO_P0 + GPIO_OUTSET)) = 1 << GPIO_PIN_LED_BUILTIN;
+  else
+    *((uint *)(GPIO_P0 + GPIO_OUTCLR)) = 1 << GPIO_PIN_LED_BUILTIN;
+}
+
+void delay_ms(uint ms) {
+  counter = 1000;
+  while (counter) {
+  }
+}
+
+void setup() {
   // Arm7-M Architecture Reference Manual (B3.3.1 SysTick operation)
   *((uint *)STRVR) = MS_TICK - 1;
   *((uint *)STCVR) = 0;
@@ -89,27 +112,23 @@ int main(void) {
   uint ENABLE_BIT = 1 << 0;    // 1 => Counter is operating.
   *((uint *)STCSR) = CLKSOURCE_BIT | TICKINT_BIT | ENABLE_BIT;
 
-  // IO
-  uint gpio_p0 = 0x50000000;
-  uint gpio_outset = 0x508;
-  uint gpio_outclr = 0x50C;
-  uint gpio_dirset = 0x518;
+  // Configure LED IO pin as output
+  *((uint *)(GPIO_P0 + GPIO_DIRSET)) = 1 << GPIO_PIN_LED_BUILTIN;
+}
 
-  uint led_builtin = 13; // P0.13 LED_BUILTIN (yellow)
+void loop() {
+  set_pin(GPIO_PIN_LED_BUILTIN, 1);
+  delay_ms(1000);
 
-  *((uint *)(gpio_p0 + gpio_dirset)) = 1 << led_builtin;
+  set_pin(GPIO_PIN_LED_BUILTIN, 0);
+  delay_ms(1000);
+}
+
+int main(void) {
+
+  setup();
 
   for (;;) {
-    *((uint *)(gpio_p0 + gpio_outset)) = 1 << led_builtin;
-
-    counter = 1000;
-    while (counter) {
-    }
-
-    *((uint *)(gpio_p0 + gpio_outclr)) = 1 << led_builtin;
-
-    counter = 1000;
-    while (counter) {
-    }
+    loop();
   }
 }
