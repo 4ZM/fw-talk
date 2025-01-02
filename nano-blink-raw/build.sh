@@ -11,10 +11,15 @@ mkdir -p build
 
 ${ARM_BIN_DIR}/arm-none-eabi-gcc ${COPTS} -c -o build/blink.o blink.c
 ${ARM_BIN_DIR}/arm-none-eabi-gcc ${COPTS} -Tlinker_script.ld -Wl,-Map,build/blink.map  -o build/blink.elf build/blink.o
+${ARM_BIN_DIR}/arm-none-eabi-gcc ${COPTS} -Tlinker_script_nobl.ld -Wl,-Map,build/blink_nobl.map  -o build/blink_nobl.elf build/blink.o
 
 ${ARM_BIN_DIR}/arm-none-eabi-objcopy -O binary build/blink.elf build/blink.bin
 ${ARM_BIN_DIR}/arm-none-eabi-objcopy -O ihex -R .eeprom build/blink.elf build/blink.hex
 
+${ARM_BIN_DIR}/arm-none-eabi-objcopy -O binary build/blink_nobl.elf build/blink_nobl.bin
+${ARM_BIN_DIR}/arm-none-eabi-objcopy -O ihex -R .eeprom build/blink_nobl.elf build/blink_nobl.hex
+
 if [ $# -gt 0 ]; then
-    "$HOME/.arduino15/packages/arduino/tools/bossac/1.9.1-arduino2/bossac" -d --port=ttyNANO0 -U -i -e -w "build/blink.bin" -R
+    "$HOME/.arduino15/packages/arduino/tools/bossac/1.9.1-arduino2/bossac" \
+        -d --port=ttyNANO0 -U -i -e -w "build/blink.bin" -R
 fi
