@@ -3,8 +3,8 @@
 ENTRY(Reset_Handler)
 
 MEMORY {
-  FLASH (rx)  : ORIGIN = 0x00000000, LENGTH = 0xf0000  /* Bootloader at 0 to 0x10000: 1024kB - 64kB */
-  RAM   (rwx) : ORIGIN = 0x20000000, LENGTH = 0x40000  /* 256 kB */
+  FLASH (rx)  : ORIGIN = 0x00000000, LENGTH = 64K
+  RAM   (rwx) : ORIGIN = 0x20000000, LENGTH = 256K
 }
 
 SECTIONS {
